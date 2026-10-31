@@ -1,7 +1,7 @@
 // ActeVote : fonctionne hors connexion. La page est toujours rechargée depuis le réseau quand c'est possible,
 // pour que chaque mise à jour publiée soit visible immédiatement.
-const CACHE = 'actevote-v3';
-const FILES = ['./', 'index.html', 'manifest.webmanifest', 'icon-192-v2.png', 'icon-512-v2.png', 'apple-touch-icon-v2.png'];
+const CACHE = 'actevote-v4';
+const FILES = ['./', 'index.html', 'manifest-v2.webmanifest', 'icon-192-v2.png', 'icon-512-v2.png', 'apple-touch-icon-v2.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES))); self.skipWaiting(); });
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys().then(k => Promise.all(k.filter(n => n !== CACHE).map(n => caches.delete(n)))));

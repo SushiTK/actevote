@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#2546a6">
 <meta name="description" content="Répondez à des questions tirées de vrais votes de l'Assemblée nationale et découvrez de quels groupes politiques vous êtes le plus proche. Application indépendante, données publiques.">
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="manifest-v2.webmanifest">
 <link rel="icon" href="icon-192-v2.png">
 <link rel="apple-touch-icon" href="apple-touch-icon-v2.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -511,15 +511,24 @@ function issueUrl(v){
 // Installation sur l'écran d'accueil
 let installEvt=null;
 const isStandalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const isAndroid=()=>/Android/i.test(navigator.userAgent);
 const isIOS=()=>/iPhone|iPad|iPod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
 function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
-function canInstall(){return !isStandalone() && (installEvt||isIOS())}
+function canInstall(){return !isStandalone() && !lsGet('av_install_done') && (installEvt||isIOS()||isAndroid())}
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();installEvt=e;if(state.view==='home'||state.view==='results'){const y=scrollY;render();scrollTo(0,y)}});
 addEventListener('appinstalled',()=>{installEvt=null;lsSet('av_install_done','1');toast('ActeVote est installée');render()});
 function doInstall(){
   if(installEvt){installEvt.prompt();installEvt.userChoice.finally(()=>{installEvt=null;const y=scrollY;render();scrollTo(0,y)});return}
-  if(isIOS()) showIOSHelp();
+  if(isIOS()) showIOSHelp(); else showAndroidHelp();
+}
+function showAndroidHelp(){
+  const d=document.createElement('div');d.className='qr-modal';d.setAttribute('role','dialog');
+  d.innerHTML=`<div class="qr-card" onclick="event.stopPropagation()" style="text-align:left"><b style="font-size:18px">Ajouter ActeVote à l'écran d'accueil</b>
+  <ol class="ios-steps"><li>Touchez le menu <b>⋮</b> en haut à droite du navigateur.</li><li>Choisissez <b>« Installer l'appli »</b> ou <b>« Ajouter à l'écran d'accueil »</b>.</li><li>Confirmez avec <b>Installer</b> ou <b>Ajouter</b>.</li></ol>
+  <p class="small muted" style="margin:-6px 0 16px">Si l'option n'apparaît pas, ouvrez ce lien dans Chrome.</p>
+  <button class="primary" onclick="this.closest('.qr-modal').remove()">J'ai compris</button></div>`;
+  d.onclick=()=>d.remove();document.body.appendChild(d);
 }
 function showIOSHelp(){
   const d=document.createElement('div');d.className='qr-modal';d.setAttribute('role','dialog');
@@ -534,7 +543,7 @@ function installCard(){
   if(!canInstall()||lsGet('av_install_hide')) return '';
   return `<div class="inst"><div class="inst-ic">${ICON.logo.replace('width="24" height="24"','width="34" height="34"')}</div>
     <div class="grow"><b>Gardez ActeVote sur votre écran d'accueil</b><span class="small muted" style="display:block">Pour refaire le test ou le montrer en un geste. Gratuit, sans compte.</span>
-    <div style="display:flex;gap:14px;margin-top:8px;align-items:center"><button class="inst-b" onclick="doInstall()">${isIOS()&&!installEvt?'Comment faire ?':'Installer'}</button><button class="inst-x" onclick="lsSet('av_install_hide','1');const y=scrollY;render();scrollTo(0,y)">Plus tard</button></div></div></div>`;
+    <div style="display:flex;gap:14px;margin-top:8px;align-items:center"><button class="inst-b" onclick="doInstall()">${installEvt?'Installer':'Comment faire ?'}</button><button class="inst-x" onclick="lsSet('av_install_hide','1');const y=scrollY;render();scrollTo(0,y)">Plus tard</button></div></div></div>`;
 }
 function shareApp(){share("Les programmes sont des promesses, les votes ne le sont pas. Testez-vous sur de vrais votes de l'Assemblée nationale :")}
 function shareResult(){
