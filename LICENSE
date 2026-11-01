@@ -1,0 +1,39 @@
+ActeVote — Licence et conditions d'utilisation
+Copyright (c) 2026 sushitk (https://github.com/sushitk). Tous droits réservés.
+
+1. CE QUI EST AUTORISÉ
+
+Le code source, les textes et les données de ce dépôt sont publiés pour permettre
+à chacun de vérifier le fonctionnement de l'application. Vous pouvez librement :
+  - consulter, lire et étudier le code et les contenus ;
+  - vérifier la méthode, les calculs et le choix des questions ;
+  - citer de courts extraits, en mentionnant « ActeVote » et l'adresse
+    https://sushitk.github.io/actevote/ ;
+  - signaler une erreur ou proposer une correction via les Issues du dépôt ;
+  - utiliser l'application en ligne et la partager.
+
+2. CE QUI N'EST PAS AUTORISÉ SANS ACCORD ÉCRIT PRÉALABLE
+
+Sauf autorisation écrite de l'auteur, il est interdit de :
+  - copier, reproduire ou redistribuer tout ou partie du code, des textes
+    (questions, résumés « En clair », notes de contexte, page Méthode)
+    ou du design ;
+  - publier une version modifiée ou dérivée de l'application ;
+  - utiliser le nom « ActeVote », son logo ou son identité visuelle,
+    ou présenter un autre service comme lié à ActeVote.
+
+Pour toute demande, ouvrez une Issue sur https://github.com/sushitk/actevote
+
+3. ÉLÉMENTS DE TIERS (NON COUVERTS PAR LA PRÉSENTE LICENCE)
+
+  - Données des scrutins : Assemblée nationale, data.assemblee-nationale.fr,
+    réutilisées sous la Licence Ouverte / Open Licence (Etalab).
+  - Icônes des réseaux sociaux : Freepik (www.freepik.com). Les logos des
+    réseaux sociaux appartiennent à leurs propriétaires respectifs.
+
+4. ABSENCE DE GARANTIE
+
+L'application est fournie « en l'état », à titre d'information, sans garantie
+d'aucune sorte. Elle compare des réponses à des votes publics ; elle ne constitue
+pas une consigne de vote. ActeVote est indépendante de l'État, de l'Assemblée
+nationale et de tout parti politique.
